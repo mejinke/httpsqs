@@ -46,6 +46,10 @@ func (mq *httpsqs) makeQuery(query string) (res string) {
     return query
 }
 
+//Do Put request from httpsqs
+//func (mq *httpsqs) put(query string, value string) (res string, err error) {
+//}
+
 //put data to queue
 func (mq *httpsqs) Put(queue string, value string) (rs bool, err error) {
     query := mq.makeQuery("name=" + queue + "&opt=put")
@@ -108,10 +112,6 @@ func (mq *httpsqs) getBool(query string, expected string) (rs bool, err error) {
     return res == expected, nil
 }
 
-//Do Put request from httpsqs
-//func (mq *httpsqs) put(query string, value string) (res string, err error) {
-//}
-
 //Get data from queue with position
 func (mq *httpsqs) PGet(queue string) (res string, pos int, err error) {
     query := mq.makeQuery("name=" + queue + "&opt=get")
@@ -165,25 +165,25 @@ func (mq *httpsqs) StatusJson(queue string) (res string, err error) {
     return mq.getString(query)
 }
 
-//view data from queue
+//View data from queue
 func (mq *httpsqs) View(queue string, pos int) (res string, err error) {
     query := "name=" + queue + "opt=view&pos=" + string(pos)
     return mq.getString(query)
 }
 
-//reset queue to empty
+//Clear queue
 func (mq *httpsqs) Reset(queue string) (rs bool, err error) {
     query := "name=" + queue + "&opt=reset"
     return mq.getBool(query, "HTTPSQS_RESET_OK")
 }
 
-//?
-func (mq *httpsqs) MaxQueue(queue string, num string) (rs bool, err error) {
+//Modify the maximum of queue
+func (mq *httpsqs) MaxQueue(queue string, num int) (rs bool, err error) {
     query := "name=" + queue + "&opt=maxqueue&num=" + string(num)
     return mq.getBool(query, "HTTPSQS_MAXQUEUE_OK")
 }
 
-//?
+//Modify the frequecy for httpsqs to save data to disk
 func (mq *httpsqs) SyncTime(num int) (rs bool, err error) {
     query := "name=httpsqs_synctime&opt=synctime&num=" + string(num)
     return mq.getBool(query, "HTTPSQS_SYNCTIME_OK")
