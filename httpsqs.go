@@ -132,6 +132,8 @@ func (mq *httpsqs) PGet(queue string) (res string, pos int, err error) {
         if posTmp != "" {
             pos, err = strconv.Atoi(posTmp)
         }
+    } else {
+        res = ""
     }
     return res, pos, nil
 }
