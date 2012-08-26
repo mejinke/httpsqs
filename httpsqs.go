@@ -19,11 +19,7 @@ type httpsqs struct {
 
 //Init a new httpsqs
 func New(options ...string) *httpsqs {
-    mq := new(httpsqs)
-    mq.host = "localhost"
-    mq.port = "1218"
-    mq.auth = ""
-    mq.charset = "utf-8"
+    mq := &httpsqs{"localhost", "1218", "", "utf-8"}
     for i:=0; i<len(options); i++ {
         switch i {
             case 0:
