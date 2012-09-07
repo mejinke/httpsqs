@@ -2,8 +2,9 @@ package httpsqs
 
 import "testing"
 
+var host = ""
+
 func TestPrivate(t *testing.T) {
-    host := "192.168.2.3"
     mq := New()
     if query:=mq.makeQuery("opt=1");query != "http://localhost:1218/?auth=&charset=utf-8&opt=1" {
         t.Log("Make Url Failed: " + query)
@@ -35,7 +36,7 @@ func TestPublic(t *testing.T) {
 
     var err error
     var value = "testing"
-    mq := New("192.168.2.3")
+    mq := New(host)
 
     _, err = mq.SyncTime(0)
     if err != nil {
